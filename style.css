@@ -1,0 +1,84 @@
+body {
+background-image:url(bg.jpg);
+background-repeat:repeat;
+color:white;
+}
+
+
+h1 {
+	text-align:center;
+	margin-top:80px;
+}
+
+.rowcheckbox1 {
+display: flex;
+align-items: center;
+justify-content: center;
+ margin-top:120px;
+ margin-bottom:120px;
+}
+
+.rowcheckbox {
+display: flex;
+align-items: center;
+justify-content: center;
+ margin-top:120px;
+ margin-bottom:120px;
+ font-size:40px;
+}
+
+input[type=radio] {
+    border: 0px;
+    width: 50%;
+    height: 25px;
+}
+
+.brandnamep {
+	font-size:55px;
+	font-weight: bold;
+	color:white;
+}
+
+.brandsimg {
+  width: 60%;
+  height: auto;
+}
+
+.submit {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #F0803C;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  margin-bottom:20px;
+}
+
+.submit:hover {background-color: #EDB458}
+
+.submit:active {
+  background-color: #EDB458;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+  
+}
+
+
+.row1 {
+	display: flex;
+align-items: center;
+justify-content: center;
+text-align:center;
+font-size:24;
+	
+	
+}
+
+#number2 {
+	color:red;
+	background-color:white;
+}

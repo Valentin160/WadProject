@@ -9,6 +9,9 @@ h1 {
 	text-align:center;
 	margin-top:80px;
 }
+#email {
+	color:black;
+}
 
 .rowcheckbox1 {
 display: flex;

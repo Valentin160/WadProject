@@ -1,0 +1,50 @@
+//references:https://stackoverflow.com/questions/27599614/var-express-requireexpress-var-app-express-what-is-express-is-it
+//biblioraphy:https://www.w3schools.com/nodejs/ref_path.asp
+//references:https://stackoverflow.com/questions/7067966/why-doesnt-adding-cors-headers-to-an-options-route-allow-browsers-to-access-my
+
+
+var express = require('express')//load modules and give you access to their exports, we also called the variable express
+var path = require('path');
+const cors = require('cors')
+var fs=require('fs')//to work with files
+var bodyParser=require('body-parser');//to work with jsons
+var app = express()
+
+app.use(express.static(__dirname));//use the css
+//references:https://expressjs.com/en/starter/static-files.html
+app.use(cors());
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+jsondata=fs.readFileSync("discountLists");
+listOfDiscounts=JSON.parse(jsondata);
+//references: https://stackoverflow.com/questions/17604866/difference-between-readfile-and-readfilesync/56110224
+
+
+app.get('/',function(req,res){
+    res.sendfile(path.join(__dirname+'/Front.html'));
+});
+
+//biblioraphy: https://expressjs.com/en/guide/routing.html
+
+app.post('/', function(req, res) {//receives data from the client
+    var defaultDiscount="0%"//presume that the default discount is 0%
+    for (i = 0; i < listOfDiscounts.length; i++) {//checks all the json to see if any of them is matching the received data
+        if (listOfDiscounts[i].brand.toLowerCase() == req.body.firma.toLowerCase() && listOfDiscounts[i].price == req.body.pret) {//checks if we find in json the selected brand and price
+            defaultDiscount = listOfDiscounts[i].discount// if we find a combination, we modify the defult discount with the one we founded
+        }
+    }
+    res.json({discount: defaultDiscount})//we send the brand to the client
+});
+
+app.post('/contact',function (req,res) {//receives data from the client(the contact me function)
+    fs.appendFile(path.join(__dirname+'/Emails'), req.body.email+'\n', function(err) {//append the email introducesd to the "Emails" file
+        if(err) {
+            return console.log(err);
+        }//in case of an error
+    });
+    res.json({email: req.body.email})//we send back to the client
+});
+
+app.listen(3000);//open the server and listen on port:3000

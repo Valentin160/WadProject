@@ -292,10 +292,10 @@
                     var sume=document.getElementsByName('suma');
                     var brand;
                     var price;
-                    var txt;
+                    var txt;//store the server response
 					var y = document.getElementById("number2")
 						y.innerHTML = Math.floor((Math.random() * 1000000000000000) + 1);
-                    for(i = 0; i <ele.length; i++) {
+                    for(i = 0; i <ele.length; i++) {//goes through all the buttons and checks which on has been saved
                         if (ele[i].checked)
                             brand= ele[i].value;//brand saves the selected brand
                     }
@@ -313,22 +313,23 @@
                     xmlHttp.setRequestHeader("Content-Type", "application/json");
                     xmlHttp.send( JSON.stringify({firma:brand,
                                                     pret:price}) );
-                    document.getElementById("number").innerHTML=txt.discount;
+                    document.getElementById("number").innerHTML=txt.discount;//the field receives the discount from the server
                     var x = document.getElementById("cupon");
-                    x.style.display = "block";
-                }
+				x.style.display = "block";
+				}
                 function contactme() {
-                    var responseJson
+                    var responseJson//variable to store the server response in json form
                     var email=document.getElementById("email").value;
-                    var xmlHttp = new XMLHttpRequest();
-                    xmlHttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                            responseJson = JSON.parse(this.responseText);
+                    var xmlHttp = new XMLHttpRequest();//variable type XMLHttpRequest. we use this to communicate with the server
+                    //biblioraphy:https://www.w3schools.com/js/js_ajax_http_response.asp
+					xmlHttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {//if the response is complete and correct, store the response in the variable
+                            responseJson = JSON.parse(this.responseText);//receives what the server sent to the client
                         }
                     }
-                    xmlHttp.open( "POST", "http://localhost:3000/contact", false );
-                    xmlHttp.setRequestHeader("Content-Type", "application/json");
-                    xmlHttp.send( JSON.stringify({email:email}) );
+                    xmlHttp.open( "POST", "http://localhost:3000/contact", false );//post - send data and expects response from the server according to the data we've sent
+                    xmlHttp.setRequestHeader("Content-Type", "application/json");//specify how he request will look like
+                    xmlHttp.send( JSON.stringify({email:email}) );//send json to server
                     document.getElementById("addedEmail").innerHTML=responseJson.email;
                 }
             </script>
